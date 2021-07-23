@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
@@ -22,6 +22,23 @@ const localizer = dateFnsLocalizer({
 const events = [];
 
 export const CalendarScreen = () => {
+  const [lastView, setLastView] = useState(
+    localStorage.getItem('lastView') || 'month'
+  );
+
+  const onViewChange = (view) => {
+    setLastView(view);
+    localStorage.setItem('lastView', view);
+  };
+
+  const onSelect = (e) => {
+    console.log(e);
+  };
+
+  const onDoubleClick = (e) => {
+    console.log(e);
+  };
+
   const eventStyleGetter = (event, start, end, isSelected) => {
     const style = {
       backgroundColor: '#367CF7',
@@ -41,7 +58,11 @@ export const CalendarScreen = () => {
         events={events}
         startAccessor="start"
         endAccessor="end"
+        view={lastView}
         eventPropGetter={eventStyleGetter}
+        onDoubleClickEvent={onDoubleClick}
+        onSelectEvent={onSelect}
+        onView={onViewChange}
         components={{ event: CalendarEvent }}
       />
     </div>
