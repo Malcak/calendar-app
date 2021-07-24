@@ -7,7 +7,7 @@ import compareAsc from 'date-fns/compareAsc';
 import add from 'date-fns/add';
 import Swal from 'sweetalert2';
 import { useForm } from '../../hooks/useForm';
-import { uiCloseModal } from '../actions/ui';
+import { closeModal } from '../actions/ui';
 
 const customStyles = {
   content: {
@@ -63,18 +63,18 @@ export const CalendarModal = () => {
 
     // TODO: do the data saving
     setTitleValid(true);
-    closeModal();
+    onRequestClose();
   };
 
-  const closeModal = () => {
-    dispatch(uiCloseModal());
+  const onRequestClose = () => {
+    dispatch(closeModal());
   };
 
   return (
     <div>
       <Modal
         isOpen={modalOpen}
-        onRequestClose={closeModal}
+        onRequestClose={onRequestClose}
         closeTimeoutMS={200}
         style={customStyles}
         className="modal"

@@ -1,4 +1,4 @@
 export const types = {
-  uiOpenModal: 'ui/openModal',
-  uiCloseModal: 'ui/closeModal',
+  openModal: 'ui/openModal',
+  closeModal: 'ui/closeModal',
 };
