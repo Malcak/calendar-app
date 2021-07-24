@@ -6,6 +6,7 @@ import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import { Navbar } from '../ui/Navbar';
 import { CalendarEvent } from './CalendarEvent';
+import { CalendarModal } from './CalendarModal';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const locales = {
@@ -65,6 +66,7 @@ export const CalendarScreen = () => {
         onView={onViewChange}
         components={{ event: CalendarEvent }}
       />
+      <CalendarModal />
     </div>
   );
 };
