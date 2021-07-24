@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import { useDispatch } from 'react-redux';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
@@ -7,6 +8,7 @@ import getDay from 'date-fns/getDay';
 import { Navbar } from '../ui/Navbar';
 import { CalendarEvent } from './CalendarEvent';
 import { CalendarModal } from './CalendarModal';
+import { uiOpenModal } from '../actions/ui';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const locales = {
@@ -23,6 +25,8 @@ const localizer = dateFnsLocalizer({
 const events = [];
 
 export const CalendarScreen = () => {
+  const dispatch = useDispatch();
+
   const [lastView, setLastView] = useState(
     localStorage.getItem('lastView') || 'month'
   );
@@ -37,7 +41,7 @@ export const CalendarScreen = () => {
   };
 
   const onDoubleClick = (e) => {
-    console.log(e);
+    dispatch(uiOpenModal());
   };
 
   const eventStyleGetter = (event, start, end, isSelected) => {
