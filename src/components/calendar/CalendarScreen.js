@@ -6,9 +6,11 @@ import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import { Navbar } from '../ui/Navbar';
+import { AddNewFab } from '../ui/AddNewFab';
 import { CalendarEvent } from './CalendarEvent';
 import { CalendarModal } from './CalendarModal';
-import { uiOpenModal } from '../actions/ui';
+import { openModal } from '../actions/ui';
+import { setActiveEvent } from '../actions/event';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const locales = {
@@ -36,12 +38,13 @@ export const CalendarScreen = () => {
     localStorage.setItem('lastView', view);
   };
 
-  const onSelect = (e) => {
-    console.log(e);
+  const onSelect = (event) => {
+    dispatch(setActiveEvent(event));
+    dispatch(openModal());
   };
 
-  const onDoubleClick = (e) => {
-    dispatch(uiOpenModal());
+  const onDoubleClick = (event) => {
+    dispatch(openModal());
   };
 
   const eventStyleGetter = (event, start, end, isSelected) => {
@@ -70,6 +73,7 @@ export const CalendarScreen = () => {
         onView={onViewChange}
         components={{ event: CalendarEvent }}
       />
+      <AddNewFab />
       <CalendarModal />
     </div>
   );
