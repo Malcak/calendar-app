@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
 import DateTimePicker from 'react-datetime-picker';
@@ -8,7 +8,7 @@ import add from 'date-fns/add';
 import Swal from 'sweetalert2';
 import { useForm } from '../../hooks/useForm';
 import { closeModal } from '../actions/ui';
-import { addNewEvent } from '../actions/event';
+import { addNewEvent, unsetActiveEvent } from '../actions/event';
 
 const customStyles = {
   content: {
@@ -23,20 +23,34 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
+const initForm = {
+  startDate: startOfHour(add(new Date(), { hours: 1 })),
+  endDate: startOfHour(add(new Date(), { hours: 2 })),
+  title: '',
+  notes: '',
+};
+
 export const CalendarModal = () => {
   const dispatch = useDispatch();
   const { modalOpen } = useSelector((state) => state.ui);
+  const { activeEvent } = useSelector((state) => state.event);
 
-  const [formValues, handleInputChange] = useForm({
-    startDate: startOfHour(add(new Date(), { hours: 1 })),
-    endDate: startOfHour(add(new Date(), { hours: 2 })),
-    title: '',
-    notes: '',
-  });
+  const [formValues, handleInputChange, reset] = useForm(initForm);
+  const { startDate, endDate, title, notes } = formValues;
 
   const [titleValid, setTitleValid] = useState(true);
 
-  const { startDate, endDate, title, notes } = formValues;
+  useEffect(() => {
+    if (activeEvent) {
+      reset({
+        startDate: activeEvent.startDate,
+        endDate: activeEvent.endDate,
+        title: activeEvent.title,
+        notes: activeEvent.notes,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeEvent]);
 
   const handleStartDateChange = (value) => {
     handleInputChange({ target: { name: 'startDate', value: value } });
@@ -65,10 +79,12 @@ export const CalendarModal = () => {
     // TODO: do the data saving
     setTitleValid(true);
     dispatch(addNewEvent({ ...formValues }));
+    reset(initForm);
     onRequestClose();
   };
 
   const onRequestClose = () => {
+    dispatch(unsetActiveEvent());
     dispatch(closeModal());
   };
 

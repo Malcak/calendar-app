@@ -27,7 +27,6 @@ const localizer = dateFnsLocalizer({
 export const CalendarScreen = () => {
   const dispatch = useDispatch();
   const { events } = useSelector((state) => state.event);
-  console.log(events);
 
   const [lastView, setLastView] = useState(
     localStorage.getItem('lastView') || 'month'
@@ -40,7 +39,6 @@ export const CalendarScreen = () => {
 
   const onSelect = (event) => {
     dispatch(setActiveEvent(event));
-    dispatch(openModal());
   };
 
   const onDoubleClick = (event) => {

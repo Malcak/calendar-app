@@ -28,6 +28,12 @@ export const eventReducer = (state = initialState, action) => {
         activeEvent: action.payload,
       };
 
+    case types.unsetActiveEvent:
+      return {
+        ...state,
+        activeEvent: null,
+      };
+
     default:
       return state;
   }
