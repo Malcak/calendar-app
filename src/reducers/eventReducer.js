@@ -23,7 +23,6 @@ export const eventReducer = (state = initialState, action) => {
       return {
         ...state,
         events: [...state.events, action.payload],
-        activeEvent: action.payload,
       };
 
     case types.setActiveEvent:
