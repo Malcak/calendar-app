@@ -1,19 +1,7 @@
 import { types } from '../types/types';
-import { add } from 'date-fns';
 
 const initialState = {
-  events: [
-    {
-      title: "Boss's bithday",
-      start: new Date(),
-      end: add(new Date(), { hours: 2 }),
-      notes: 'Buy a cake',
-      user: {
-        _id: '123',
-        name: 'Name',
-      },
-    },
-  ],
+  events: [],
   activeEvent: null,
 };
 
@@ -22,7 +10,16 @@ export const eventReducer = (state = initialState, action) => {
     case types.addNewEvent:
       return {
         ...state,
-        events: [...state.events, action.payload],
+        events: [
+          ...state.events,
+          {
+            ...action.payload,
+            user: {
+              _id: '123',
+              name: 'Name',
+            },
+          },
+        ],
       };
 
     case types.setActiveEvent:

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
@@ -24,10 +24,10 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const events = [];
-
 export const CalendarScreen = () => {
   const dispatch = useDispatch();
+  const { events } = useSelector((state) => state.event);
+  console.log(events);
 
   const [lastView, setLastView] = useState(
     localStorage.getItem('lastView') || 'month'
@@ -64,8 +64,8 @@ export const CalendarScreen = () => {
       <Calendar
         localizer={localizer}
         events={events}
-        startAccessor="start"
-        endAccessor="end"
+        startAccessor="startDate"
+        endAccessor="endDate"
         view={lastView}
         eventPropGetter={eventStyleGetter}
         onDoubleClickEvent={onDoubleClick}
