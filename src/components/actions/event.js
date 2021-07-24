@@ -13,3 +13,8 @@ export const setActiveEvent = (event) => ({
 export const unsetActiveEvent = () => ({
   type: types.unsetActiveEvent,
 });
+
+export const updateEvent = (event) => ({
+  type: types.updateEvent,
+  payload: event,
+});

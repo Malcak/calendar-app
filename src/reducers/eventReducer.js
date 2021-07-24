@@ -14,6 +14,7 @@ export const eventReducer = (state = initialState, action) => {
           ...state.events,
           {
             ...action.payload,
+            _id: new Date().getTime(),
             user: {
               _id: '123',
               name: 'Name',
@@ -32,6 +33,14 @@ export const eventReducer = (state = initialState, action) => {
       return {
         ...state,
         activeEvent: null,
+      };
+
+    case types.updateEvent:
+      return {
+        ...state,
+        events: state.events.map((event) =>
+          event._id === action.payload._id ? action.payload : event
+        ),
       };
 
     default:

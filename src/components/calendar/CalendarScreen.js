@@ -7,6 +7,7 @@ import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import { Navbar } from '../ui/Navbar';
 import { AddNewFab } from '../ui/AddNewFab';
+import { EditFab } from '../ui/EditFab';
 import { CalendarEvent } from './CalendarEvent';
 import { CalendarModal } from './CalendarModal';
 import { openModal } from '../actions/ui';
@@ -26,7 +27,7 @@ const localizer = dateFnsLocalizer({
 
 export const CalendarScreen = () => {
   const dispatch = useDispatch();
-  const { events } = useSelector((state) => state.event);
+  const { events, activeEvent } = useSelector((state) => state.event);
 
   const [lastView, setLastView] = useState(
     localStorage.getItem('lastView') || 'month'
@@ -71,7 +72,7 @@ export const CalendarScreen = () => {
         onView={onViewChange}
         components={{ event: CalendarEvent }}
       />
-      <AddNewFab />
+      {!activeEvent ? <AddNewFab /> : <EditFab />}
       <CalendarModal />
     </div>
   );

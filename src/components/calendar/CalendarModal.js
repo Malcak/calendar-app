@@ -8,7 +8,7 @@ import add from 'date-fns/add';
 import Swal from 'sweetalert2';
 import { useForm } from '../../hooks/useForm';
 import { closeModal } from '../actions/ui';
-import { addNewEvent, unsetActiveEvent } from '../actions/event';
+import { addNewEvent, unsetActiveEvent, updateEvent } from '../actions/event';
 
 const customStyles = {
   content: {
@@ -41,7 +41,7 @@ export const CalendarModal = () => {
   const [titleValid, setTitleValid] = useState(true);
 
   useEffect(() => {
-    if (activeEvent) {
+    if (activeEvent != null) {
       reset({
         startDate: activeEvent.startDate,
         endDate: activeEvent.endDate,
@@ -78,13 +78,26 @@ export const CalendarModal = () => {
 
     // TODO: do the data saving
     setTitleValid(true);
-    dispatch(addNewEvent({ ...formValues }));
+
+    if (activeEvent) {
+      dispatch(
+        updateEvent({
+          ...formValues,
+          _id: activeEvent._id,
+          user: activeEvent.user,
+        })
+      );
+    } else {
+      dispatch(addNewEvent({ ...formValues }));
+    }
+
     reset(initForm);
     onRequestClose();
   };
 
   const onRequestClose = () => {
     dispatch(unsetActiveEvent());
+    reset(initForm);
     dispatch(closeModal());
   };
 
