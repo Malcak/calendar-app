@@ -8,6 +8,7 @@ import add from 'date-fns/add';
 import Swal from 'sweetalert2';
 import { useForm } from '../../hooks/useForm';
 import { closeModal } from '../actions/ui';
+import { addNewEvent } from '../actions/event';
 
 const customStyles = {
   content: {
@@ -63,6 +64,7 @@ export const CalendarModal = () => {
 
     // TODO: do the data saving
     setTitleValid(true);
+    dispatch(addNewEvent({ ...formValues }));
     onRequestClose();
   };
 
