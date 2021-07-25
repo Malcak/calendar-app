@@ -41,13 +41,15 @@ export const CalendarModal = () => {
   const [titleValid, setTitleValid] = useState(true);
 
   useEffect(() => {
-    if (activeEvent != null) {
+    if (activeEvent) {
       reset({
         startDate: activeEvent.startDate,
         endDate: activeEvent.endDate,
         title: activeEvent.title,
         notes: activeEvent.notes,
       });
+    } else {
+      reset(initForm);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeEvent]);
@@ -97,7 +99,6 @@ export const CalendarModal = () => {
 
   const onRequestClose = () => {
     dispatch(unsetActiveEvent());
-    reset(initForm);
     dispatch(closeModal());
   };
 
@@ -112,7 +113,7 @@ export const CalendarModal = () => {
         overlayClassName="modal-back"
       >
         <form onSubmit={handleSubmit} className="container">
-          <h1> New Event </h1>
+          <h1>{activeEvent ? 'Edit Event' : 'New Event'}</h1>
           <hr />
           <div className="mb-3">
             <label>Start date and time</label>
