@@ -39,7 +39,7 @@ export const CalendarScreen = () => {
     localStorage.setItem('lastView', view);
   };
 
-  const onSelectSlot = (slot) => {
+  const onSelectSlot = () => {
     dispatch(unsetActiveEvent());
   };
 
@@ -47,7 +47,7 @@ export const CalendarScreen = () => {
     dispatch(setActiveEvent(event));
   };
 
-  const onDoubleClick = (event) => {
+  const onDoubleClick = () => {
     dispatch(openModal());
   };
 

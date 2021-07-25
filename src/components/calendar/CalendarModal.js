@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
 import DateTimePicker from 'react-datetime-picker';
+import Swal from 'sweetalert2';
 import startOfHour from 'date-fns/startOfHour';
 import compareAsc from 'date-fns/compareAsc';
 import add from 'date-fns/add';
-import Swal from 'sweetalert2';
 import { useForm } from '../../hooks/useForm';
 import { closeModal } from '../actions/ui';
 import { addNewEvent, unsetActiveEvent, updateEvent } from '../actions/event';
@@ -51,6 +51,7 @@ export const CalendarModal = () => {
     } else {
       reset(initForm);
     }
+    // the reset function changes each time the component is redrawn, if set as a dependency it would create an infinite loop.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeEvent]);
 
