@@ -8,12 +8,12 @@ import getDay from 'date-fns/getDay';
 import { Navbar } from '../ui/Navbar';
 import { AddNewFab } from '../ui/AddNewFab';
 import { EditFab } from '../ui/EditFab';
+import { DeleteFab } from '../ui/DeleteFab';
 import { CalendarEvent } from './CalendarEvent';
 import { CalendarModal } from './CalendarModal';
 import { openModal } from '../actions/ui';
-import { setActiveEvent } from '../actions/event';
+import { setActiveEvent, unsetActiveEvent } from '../actions/event';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { DeleteFab } from '../ui/DeleteFab';
 
 const locales = {
   'en-US': require('date-fns/locale/en-US'),
@@ -37,6 +37,10 @@ export const CalendarScreen = () => {
   const onViewChange = (view) => {
     setLastView(view);
     localStorage.setItem('lastView', view);
+  };
+
+  const onSelectSlot = (slot) => {
+    dispatch(unsetActiveEvent());
   };
 
   const onSelect = (event) => {
@@ -67,9 +71,11 @@ export const CalendarScreen = () => {
         startAccessor="startDate"
         endAccessor="endDate"
         view={lastView}
+        selectable={true}
         eventPropGetter={eventStyleGetter}
         onDoubleClickEvent={onDoubleClick}
         onSelectEvent={onSelect}
+        onSelectSlot={onSelectSlot}
         onView={onViewChange}
         components={{ event: CalendarEvent }}
       />
