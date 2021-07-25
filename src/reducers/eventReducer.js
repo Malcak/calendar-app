@@ -43,6 +43,15 @@ export const eventReducer = (state = initialState, action) => {
         ),
       };
 
+    case types.deleteEvent:
+      return {
+        ...state,
+        events: state.events.filter(
+          (event) => event._id !== state.activeEvent._id
+        ),
+        activeEvent: null,
+      };
+
     default:
       return state;
   }

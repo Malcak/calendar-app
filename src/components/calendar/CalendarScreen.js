@@ -13,6 +13,7 @@ import { CalendarModal } from './CalendarModal';
 import { openModal } from '../actions/ui';
 import { setActiveEvent } from '../actions/event';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { DeleteFab } from '../ui/DeleteFab';
 
 const locales = {
   'en-US': require('date-fns/locale/en-US'),
@@ -72,7 +73,13 @@ export const CalendarScreen = () => {
         onView={onViewChange}
         components={{ event: CalendarEvent }}
       />
-      {!activeEvent ? <AddNewFab /> : <EditFab />}
+      {!activeEvent ? (
+        <AddNewFab />
+      ) : (
+        <div>
+          <EditFab /> <DeleteFab />
+        </div>
+      )}
       <CalendarModal />
     </div>
   );
