@@ -65,25 +65,6 @@ body {
   border: 0px solid grey !important;
 }
 
-/* FABs */
-.fab {
-  border-radius: 100%;
-  bottom: 25px;
-  font-size: 1.5rem;
-  padding: 20px;
-  position: fixed;
-  right: 25px;
-}
-
-.fab-danger {
-  border-radius: 100%;
-  bottom: 25px;
-  font-size: 1.5rem;
-  padding: 14px 20px;
-  position: fixed;
-  left: 25px;
-}
-
 /* Hide scrollbar for Chrome, Safari and Opera */
 body::-webkit-scrollbar {
   display: none;
