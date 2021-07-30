@@ -1,8 +1,10 @@
+import './App.css';
+
 import React from 'react';
 import { Provider } from 'react-redux';
-import { store } from './store/store';
+
 import { AppRouter } from './routers/AppRouter';
-import './App.css';
+import { store } from './store/store';
 
 function App() {
   return (

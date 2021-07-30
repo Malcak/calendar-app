@@ -1,22 +1,25 @@
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+
+import format from 'date-fns/format';
+import getDay from 'date-fns/getDay';
+import localUS from 'date-fns/locale/en-US';
+import parse from 'date-fns/parse';
+import startOfWeek from 'date-fns/startOfWeek';
 import React, { useState } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import { useDispatch, useSelector } from 'react-redux';
-import format from 'date-fns/format';
-import parse from 'date-fns/parse';
-import startOfWeek from 'date-fns/startOfWeek';
-import getDay from 'date-fns/getDay';
-import { Navbar } from '../ui/Navbar';
+
+import { setActiveEvent, unsetActiveEvent } from '../actions/event';
+import { openModal } from '../actions/ui';
 import { AddNewFab } from '../ui/AddNewFab';
-import { EditFab } from '../ui/EditFab';
 import { DeleteFab } from '../ui/DeleteFab';
+import { EditFab } from '../ui/EditFab';
+import { Navbar } from '../ui/Navbar';
 import { CalendarEvent } from './CalendarEvent';
 import { CalendarModal } from './CalendarModal';
-import { openModal } from '../actions/ui';
-import { setActiveEvent, unsetActiveEvent } from '../actions/event';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const locales = {
-  'en-US': require('date-fns/locale/en-US'),
+  'en-US': localUS,
 };
 const localizer = dateFnsLocalizer({
   format,
@@ -31,7 +34,7 @@ export const CalendarScreen = () => {
   const { events, activeEvent } = useSelector((state) => state.event);
 
   const [lastView, setLastView] = useState(
-    localStorage.getItem('lastView') || 'month'
+    localStorage.getItem('lastView') || 'month',
   );
 
   const onViewChange = (view) => {
@@ -51,7 +54,7 @@ export const CalendarScreen = () => {
     dispatch(openModal());
   };
 
-  const eventStyleGetter = (event, start, end, isSelected) => {
+  const eventStyleGetter = () => {
     const style = {
       backgroundColor: '#367CF7',
       borderRadius: 0,
@@ -71,7 +74,7 @@ export const CalendarScreen = () => {
         startAccessor="startDate"
         endAccessor="endDate"
         view={lastView}
-        selectable={true}
+        selectable
         eventPropGetter={eventStyleGetter}
         onDoubleClickEvent={onDoubleClick}
         onSelectEvent={onSelect}
@@ -83,7 +86,8 @@ export const CalendarScreen = () => {
         <AddNewFab />
       ) : (
         <div>
-          <EditFab /> <DeleteFab />
+          <EditFab />
+          <DeleteFab />
         </div>
       )}
       <CalendarModal />

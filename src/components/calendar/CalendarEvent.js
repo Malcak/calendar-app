@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export const CalendarEvent = ({ event }) => {
@@ -10,4 +11,13 @@ export const CalendarEvent = ({ event }) => {
       <span>{user.name}</span>
     </div>
   );
+};
+
+CalendarEvent.propTypes = {
+  event: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    user: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
 };

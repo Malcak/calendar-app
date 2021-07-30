@@ -1,8 +1,9 @@
-import React from 'react';
-import { Fab } from 'react-tiny-fab';
 import 'react-tiny-fab/dist/styles.css';
 
+import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Fab } from 'react-tiny-fab';
+
 import { openModal } from '../actions/ui';
 
 export const EditFab = () => {
@@ -17,8 +18,8 @@ export const EditFab = () => {
       <Fab
         mainButtonStyles={{ backgroundColor: '#f0ad4e' }}
         style={{ bottom: 16, right: 16 }}
-        icon={<i className="fas fa-pen"></i>}
-        event={'click'}
+        icon={<i className="fas fa-pen" />}
+        event="click"
         onClick={handleClick}
       />
     </div>

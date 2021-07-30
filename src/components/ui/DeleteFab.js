@@ -1,8 +1,9 @@
-import React from 'react';
-import { Fab } from 'react-tiny-fab';
 import 'react-tiny-fab/dist/styles.css';
 
+import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Fab } from 'react-tiny-fab';
+
 import { deleteEvent } from '../actions/event';
 
 export const DeleteFab = () => {
@@ -17,8 +18,8 @@ export const DeleteFab = () => {
       <Fab
         mainButtonStyles={{ backgroundColor: '#d9534f' }}
         style={{ bottom: 16, left: 16 }}
-        icon={<i className="fas fa-trash-alt"></i>}
-        event={'click'}
+        icon={<i className="fas fa-trash-alt" />}
+        event="click"
         onClick={handleClick}
       />
     </div>

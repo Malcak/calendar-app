@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Modal from 'react-modal';
-import DateTimePicker from 'react-datetime-picker';
-import Swal from 'sweetalert2';
-import startOfHour from 'date-fns/startOfHour';
-import compareAsc from 'date-fns/compareAsc';
 import add from 'date-fns/add';
+import compareAsc from 'date-fns/compareAsc';
+import startOfHour from 'date-fns/startOfHour';
+import React, { useEffect, useState } from 'react';
+import DateTimePicker from 'react-datetime-picker';
+import Modal from 'react-modal';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+
 import { useForm } from '../../hooks/useForm';
-import { closeModal } from '../actions/ui';
 import { addNewEvent, unsetActiveEvent, updateEvent } from '../actions/event';
+import { closeModal } from '../actions/ui';
 
 const customStyles = {
   content: {
@@ -36,7 +37,9 @@ export const CalendarModal = () => {
   const { activeEvent } = useSelector((state) => state.event);
 
   const [formValues, handleInputChange, reset] = useForm(initForm);
-  const { startDate, endDate, title, notes } = formValues;
+  const {
+    startDate, endDate, title, notes,
+  } = formValues;
 
   const [titleValid, setTitleValid] = useState(true);
 
@@ -51,16 +54,25 @@ export const CalendarModal = () => {
     } else {
       reset(initForm);
     }
-    // the reset function changes each time the component is redrawn, if set as a dependency it would create an infinite loop.
+
+    /*
+    the reset function changes each time the component is redrawn,
+    if set as a dependency it would create an infinite loop.
+    */
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeEvent]);
 
+  const onRequestClose = () => {
+    dispatch(unsetActiveEvent());
+    dispatch(closeModal());
+  };
+
   const handleStartDateChange = (value) => {
-    handleInputChange({ target: { name: 'startDate', value: value } });
+    handleInputChange({ target: { name: 'startDate', value } });
   };
 
   const handleEndDateChange = (value) => {
-    handleInputChange({ target: { name: 'endDate', value: value } });
+    handleInputChange({ target: { name: 'endDate', value } });
   };
 
   const handleSubmit = (e) => {
@@ -70,7 +82,7 @@ export const CalendarModal = () => {
       Swal.fire(
         'Error',
         'The end date must be greater than the start date',
-        'error'
+        'error',
       );
       return;
     }
@@ -88,7 +100,7 @@ export const CalendarModal = () => {
           ...formValues,
           _id: activeEvent._id,
           user: activeEvent.user,
-        })
+        }),
       );
     } else {
       dispatch(addNewEvent({ ...formValues }));
@@ -96,11 +108,6 @@ export const CalendarModal = () => {
 
     reset(initForm);
     onRequestClose();
-  };
-
-  const onRequestClose = () => {
-    dispatch(unsetActiveEvent());
-    dispatch(closeModal());
   };
 
   return (
@@ -117,37 +124,43 @@ export const CalendarModal = () => {
           <h1>{activeEvent ? 'Edit Event' : 'New Event'}</h1>
           <hr />
           <div className="mb-3">
-            <label>Start date and time</label>
-            <DateTimePicker
-              onChange={handleStartDateChange}
-              value={startDate}
-              name="startDate"
-              className="form-control"
-            />
+            <label>
+              Start date and time
+              <DateTimePicker
+                onChange={handleStartDateChange}
+                value={startDate}
+                name="startDate"
+                className="form-control"
+              />
+            </label>
           </div>
 
           <div className="mb-3">
-            <label>End date and time</label>
-            <DateTimePicker
-              onChange={handleEndDateChange}
-              value={endDate}
-              name="endDate"
-              className="form-control"
-            />
+            <label>
+              End date and time
+              <DateTimePicker
+                onChange={handleEndDateChange}
+                value={endDate}
+                name="endDate"
+                className="form-control"
+              />
+            </label>
           </div>
 
           <hr />
           <div className="mb-3">
-            <label>Title and Notes</label>
-            <input
-              type="text"
-              className={`form-control ${!titleValid && 'is-invalid'}`}
-              placeholder="Event title"
-              name="title"
-              value={title}
-              onChange={handleInputChange}
-              autoComplete="off"
-            />
+            <label>
+              Title and Notes
+              <input
+                type="text"
+                className={`form-control ${!titleValid && 'is-invalid'}`}
+                placeholder="Event title"
+                name="title"
+                value={title}
+                onChange={handleInputChange}
+                autoComplete="off"
+              />
+            </label>
             <small className="form-text text-muted">A short description</small>
           </div>
 
@@ -160,7 +173,7 @@ export const CalendarModal = () => {
               name="notes"
               onChange={handleInputChange}
               value={notes}
-            ></textarea>
+            />
             <small className="form-text text-muted">
               Additional information
             </small>
@@ -168,7 +181,7 @@ export const CalendarModal = () => {
           <div className="d-grid gap-1">
             <button type="submit" className="btn btn-outline-primary">
               <span className="me-2">Save</span>
-              <i className="far fa-save"></i>
+              <i className="far fa-save" />
             </button>
           </div>
         </form>
