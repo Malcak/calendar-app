@@ -1,22 +1,6 @@
-import Swal from 'sweetalert2';
-
 import { fetchWithoutToken, fetchWithToken } from '../../helpers/fetch';
+import handleError from '../../helpers/handleError';
 import { types } from '../../types/types';
-
-const handleError = (errors) => {
-  const errorKeys = Object.keys(errors);
-  if (errorKeys.length === 1) {
-    Swal.fire('Error', errors[errorKeys[0]].msg, 'error');
-  } else {
-    Swal.fire(
-      'Error',
-      `${errorKeys.reduce((acc, el) => {
-        return `${acc}, ${el}`;
-      })}, ${errors[errorKeys[0]].msg}`,
-      'error'
-    );
-  }
-};
 
 const loggedIn = (user) => ({
   type: types.loggedIn,
