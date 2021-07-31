@@ -23,6 +23,7 @@
     "jsx-a11y/label-has-associated-control": "off",
     "no-confusing-arrow": "off",
     "no-underscore-dangle": "off",
+    "object-curly-newline": "off",
     "react/jsx-filename-extension": [
       1,
       {

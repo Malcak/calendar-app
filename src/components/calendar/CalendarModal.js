@@ -37,9 +37,7 @@ export const CalendarModal = () => {
   const { activeEvent } = useSelector((state) => state.event);
 
   const [formValues, handleInputChange, reset] = useForm(initForm);
-  const {
-    startDate, endDate, title, notes,
-  } = formValues;
+  const { startDate, endDate, title, notes } = formValues;
 
   const [titleValid, setTitleValid] = useState(true);
 
@@ -82,7 +80,7 @@ export const CalendarModal = () => {
       Swal.fire(
         'Error',
         'The end date must be greater than the start date',
-        'error',
+        'error'
       );
       return;
     }
@@ -100,7 +98,7 @@ export const CalendarModal = () => {
           ...formValues,
           _id: activeEvent._id,
           user: activeEvent.user,
-        }),
+        })
       );
     } else {
       dispatch(addNewEvent({ ...formValues }));
@@ -124,43 +122,38 @@ export const CalendarModal = () => {
           <h1>{activeEvent ? 'Edit Event' : 'New Event'}</h1>
           <hr />
           <div className="mb-3">
-            <label>
-              Start date and time
-              <DateTimePicker
-                onChange={handleStartDateChange}
-                value={startDate}
-                name="startDate"
-                className="form-control"
-              />
-            </label>
+            <label>Start date and time</label>
+            <DateTimePicker
+              onChange={handleStartDateChange}
+              value={startDate}
+              name="startDate"
+              className="form-control"
+            />
           </div>
 
           <div className="mb-3">
-            <label>
-              End date and time
-              <DateTimePicker
-                onChange={handleEndDateChange}
-                value={endDate}
-                name="endDate"
-                className="form-control"
-              />
-            </label>
+            <label>End date and time</label>
+            <DateTimePicker
+              onChange={handleEndDateChange}
+              value={endDate}
+              name="endDate"
+              className="form-control"
+            />
           </div>
 
           <hr />
           <div className="mb-3">
-            <label>
-              Title and Notes
-              <input
-                type="text"
-                className={`form-control ${!titleValid && 'is-invalid'}`}
-                placeholder="Event title"
-                name="title"
-                value={title}
-                onChange={handleInputChange}
-                autoComplete="off"
-              />
-            </label>
+            <label>Title and Notes</label>
+            <input
+              type="text"
+              className={`form-control ${!titleValid && 'is-invalid'}`}
+              placeholder="Event title"
+              name="title"
+              value={title}
+              onChange={handleInputChange}
+              autoComplete="off"
+            />
+
             <small className="form-text text-muted">A short description</small>
           </div>
 
