@@ -4,7 +4,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Fab } from 'react-tiny-fab';
 
-import { openModal } from '../actions/ui';
+import { openModal } from '../../actions/ui';
 
 export const EditFab = () => {
   const dispatch = useDispatch();

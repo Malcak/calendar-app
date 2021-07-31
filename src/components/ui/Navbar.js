@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { logout } from '../../actions/auth';
 import capitalizeFirstLetter from '../../helpers/capitalize';
-import { logout } from '../actions/auth';
 
 export const Navbar = () => {
   const dispatch = useDispatch();

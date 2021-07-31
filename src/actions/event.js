@@ -1,6 +1,8 @@
-import { fetchWithToken } from '../../helpers/fetch';
-import handleError from '../../helpers/handleError';
-import { types } from '../../types/types';
+import parseISO from 'date-fns/parseISO';
+
+import { fetchWithToken } from '../helpers/fetch';
+import handleError from '../helpers/handleError';
+import { types } from '../types/types';
 
 const addedNewEvent = (event) => ({
   type: types.addNewEvent,
@@ -14,8 +16,8 @@ export const addNewEvent = (event) => {
       const body = await resp.json();
 
       if (body.ok) {
-        body.data.startDate = new Date(body.data.startDate);
-        body.data.endDate = new Date(body.data.endDate);
+        body.data.startDate = parseISO(body.data.startDate);
+        body.data.endDate = parseISO(body.data.endDate);
         dispatch(addedNewEvent(body.data));
       } else {
         handleError(body.errors);
@@ -38,12 +40,12 @@ export const loadEvents = () => {
       const body = await resp.json();
 
       if (body.ok) {
-        body.data.map((event) => ({
+        const events = body.data.map((event) => ({
           ...event,
-          startDate: new Date(event.startDate),
-          endDate: new Date(event.endDate),
+          startDate: parseISO(event.startDate),
+          endDate: parseISO(event.endDate),
         }));
-        dispatch(loadedEvents(body.data));
+        dispatch(loadedEvents(events));
       } else {
         handleError(body.errors);
       }
@@ -78,8 +80,8 @@ export const updateEvent = (event) => {
       const body = await resp.json();
 
       if (body.ok) {
-        body.data.startDate = new Date(body.data.startDate);
-        body.data.endDate = new Date(body.data.endDate);
+        body.data.startDate = parseISO(body.data.startDate);
+        body.data.endDate = parseISO(body.data.endDate);
         dispatch(updatedEvent(body.data));
       } else {
         handleError(body.errors);

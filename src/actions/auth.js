@@ -1,7 +1,7 @@
-import { fetchWithoutToken, fetchWithToken } from '../../helpers/fetch';
-import handleError from '../../helpers/handleError';
-import { types } from '../../types/types';
-import { clearEvents } from './event';
+import { fetchWithoutToken, fetchWithToken } from '../helpers/fetch';
+import handleError from '../helpers/handleError';
+import { types } from '../types/types';
+import { clearEvents, loadEvents } from './event';
 
 const loggedIn = (user) => ({
   type: types.loggedIn,
@@ -21,6 +21,7 @@ export const logIn = (email, password) => {
       localStorage.setItem('token', body.data.token);
       localStorage.setItem('tokenDate', new Date().getTime());
       dispatch(loggedIn(body.data.user));
+      dispatch(loadEvents());
     } else {
       handleError(body.errors);
     }
@@ -59,6 +60,7 @@ export const checkAuth = () => {
       localStorage.setItem('token', body.data.token);
       localStorage.setItem('tokenDate', new Date().getTime());
       dispatch(loggedIn(body.data.user));
+      dispatch(loadEvents());
     } else {
       dispatch(checkedAuth());
     }

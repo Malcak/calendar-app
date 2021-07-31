@@ -7,9 +7,13 @@ import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 
+import {
+  addNewEvent,
+  unsetActiveEvent,
+  updateEvent,
+} from '../../actions/event';
+import { closeModal } from '../../actions/ui';
 import { useForm } from '../../hooks/useForm';
-import { addNewEvent, unsetActiveEvent, updateEvent } from '../actions/event';
-import { closeModal } from '../actions/ui';
 
 const customStyles = {
   content: {

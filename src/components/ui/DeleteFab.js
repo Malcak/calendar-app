@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Fab } from 'react-tiny-fab';
 import Swal from 'sweetalert2';
 
-import { deleteEvent } from '../actions/event';
+import { deleteEvent } from '../../actions/event';
 
 export const DeleteFab = () => {
   const dispatch = useDispatch();
