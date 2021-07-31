@@ -7,4 +7,8 @@ export const types = {
   unsetActiveEvent: '@event/unsetActiveEvent',
   updateEvent: '@event/updateEvent',
   deleteEvent: '@event/deleteEvent',
+
+  checkedAuth: '@auth/chekedAuth',
+  loggedIn: '@auth/loggedIn',
+  logOut: '@auth/logout',
 };
