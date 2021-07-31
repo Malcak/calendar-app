@@ -13,7 +13,9 @@
   },
   "plugins": ["react", "react-hooks", "simple-import-sort", "import"],
   "rules": {
+    "arrow-body-style": "off",
     "comma-dangle": "off",
+    "consistent-return": "off",
     "function-paren-newline": "off",
     "implicit-arrow-linebreak": "off",
     "import/first": "error",
@@ -24,12 +26,14 @@
     "no-confusing-arrow": "off",
     "no-underscore-dangle": "off",
     "object-curly-newline": "off",
+    "react/jsx-curly-newline": "off",
     "react/jsx-filename-extension": [
       1,
       {
         "extensions": [".js", ".jsx"]
       }
     ],
+    "react/jsx-props-no-spreading": "off",
     "simple-import-sort/exports": "error",
     "simple-import-sort/imports": "error"
   }
