@@ -5,11 +5,11 @@ import getDay from 'date-fns/getDay';
 import localUS from 'date-fns/locale/en-US';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setActiveEvent, unsetActiveEvent } from '../actions/event';
+import { loadEvents, setActiveEvent, unsetActiveEvent } from '../actions/event';
 import { openModal } from '../actions/ui';
 import { AddNewFab } from '../ui/AddNewFab';
 import { DeleteFab } from '../ui/DeleteFab';
@@ -34,8 +34,12 @@ export const CalendarScreen = () => {
   const { events, activeEvent } = useSelector((state) => state.event);
 
   const [lastView, setLastView] = useState(
-    localStorage.getItem('lastView') || 'month',
+    localStorage.getItem('lastView') || 'month'
   );
+
+  useEffect(() => {
+    dispatch(loadEvents());
+  }, [dispatch]);
 
   const onViewChange = (view) => {
     setLastView(view);

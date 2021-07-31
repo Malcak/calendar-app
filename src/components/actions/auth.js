@@ -1,6 +1,7 @@
 import { fetchWithoutToken, fetchWithToken } from '../../helpers/fetch';
 import handleError from '../../helpers/handleError';
 import { types } from '../../types/types';
+import { clearEvents } from './event';
 
 const loggedIn = (user) => ({
   type: types.loggedIn,
@@ -72,5 +73,6 @@ export const logout = () => {
   return (dispatch) => {
     localStorage.clear();
     dispatch(loggedOut());
+    dispatch(clearEvents());
   };
 };

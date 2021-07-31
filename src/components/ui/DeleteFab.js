@@ -1,7 +1,7 @@
 import 'react-tiny-fab/dist/styles.css';
 
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Fab } from 'react-tiny-fab';
 import Swal from 'sweetalert2';
 
@@ -9,6 +9,7 @@ import { deleteEvent } from '../actions/event';
 
 export const DeleteFab = () => {
   const dispatch = useDispatch();
+  const { activeEvent } = useSelector((state) => state.event);
 
   const handleClick = () => {
     Swal.fire({
@@ -18,8 +19,7 @@ export const DeleteFab = () => {
       icon: 'question',
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteEvent());
-        Swal.fire('Deleted!', '', 'success');
+        dispatch(deleteEvent(activeEvent._id));
       }
     });
   };

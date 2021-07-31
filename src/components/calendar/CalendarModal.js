@@ -89,7 +89,6 @@ export const CalendarModal = () => {
       return;
     }
 
-    // TODO: do the data saving
     setTitleValid(true);
 
     if (activeEvent) {
@@ -97,7 +96,6 @@ export const CalendarModal = () => {
         updateEvent({
           ...formValues,
           _id: activeEvent._id,
-          user: activeEvent.user,
         })
       );
     } else {

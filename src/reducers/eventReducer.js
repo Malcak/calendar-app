@@ -18,6 +18,18 @@ export const eventReducer = (state = initialState, action) => {
         ],
       };
 
+    case types.loadEvents:
+      return {
+        ...state,
+        events: [...action.payload],
+      };
+
+    case types.clearEvents:
+      return {
+        activeEvent: null,
+        events: [],
+      };
+
     case types.setActiveEvent:
       return {
         ...state,
