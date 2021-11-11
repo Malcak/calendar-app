@@ -16,9 +16,9 @@ export const addNewEvent = (event) => {
       const body = await resp.json();
 
       if (body.ok) {
-        body.data.startDate = parseISO(body.data.startDate);
-        body.data.endDate = parseISO(body.data.endDate);
-        dispatch(addedNewEvent(body.data));
+        body.data.event.startDate = parseISO(body.data.event.startDate);
+        body.data.event.endDate = parseISO(body.data.event.endDate);
+        dispatch(addedNewEvent(body.data.event));
       } else {
         handleError(body.errors);
       }
@@ -40,7 +40,7 @@ export const loadEvents = () => {
       const body = await resp.json();
 
       if (body.ok) {
-        const events = body.data.map((event) => ({
+        const events = body.data.events.map((event) => ({
           ...event,
           startDate: parseISO(event.startDate),
           endDate: parseISO(event.endDate),
@@ -80,9 +80,9 @@ export const updateEvent = (event) => {
       const body = await resp.json();
 
       if (body.ok) {
-        body.data.startDate = parseISO(body.data.startDate);
-        body.data.endDate = parseISO(body.data.endDate);
-        dispatch(updatedEvent(body.data));
+        body.data.event.startDate = parseISO(body.data.event.startDate);
+        body.data.event.endDate = parseISO(body.data.event.endDate);
+        dispatch(updatedEvent(body.data.event));
       } else {
         handleError(body.errors);
       }
