@@ -46,7 +46,7 @@ export const CalendarModal = () => {
   const { startDate, endDate, title, notes } = formValues;
 
   const [titleValid, setTitleValid] = useState(true);
-  const [mdPreview, setMdPreview] = useState(true);
+  const [mdPreview, setMdPreview] = useState(false);
 
   useEffect(() => {
     if (activeEvent) {
