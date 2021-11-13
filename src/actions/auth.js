@@ -60,6 +60,7 @@ export const checkAuth = () => {
       localStorage.setItem('token', body.data.token);
       localStorage.setItem('tokenDate', new Date().getTime());
       dispatch(loggedIn(body.data.user));
+      dispatch(loadEvents());
     } else {
       dispatch(checkedAuth());
     }
