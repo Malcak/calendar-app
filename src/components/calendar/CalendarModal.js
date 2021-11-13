@@ -2,6 +2,8 @@ import add from 'date-fns/add';
 import compareAsc from 'date-fns/compareAsc';
 import startOfHour from 'date-fns/startOfHour';
 import React, { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import DateTimePicker from 'react-datetime-picker';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -44,6 +46,7 @@ export const CalendarModal = () => {
   const { startDate, endDate, title, notes } = formValues;
 
   const [titleValid, setTitleValid] = useState(true);
+  const [mdPreview, setMdPreview] = useState(true);
 
   useEffect(() => {
     if (activeEvent) {
@@ -75,6 +78,10 @@ export const CalendarModal = () => {
 
   const handleEndDateChange = (value) => {
     handleInputChange({ target: { name: 'endDate', value } });
+  };
+
+  const handlePreview = () => {
+    setMdPreview(!mdPreview);
   };
 
   const handleSubmit = (e) => {
@@ -160,15 +167,34 @@ export const CalendarModal = () => {
           </div>
 
           <div className="mb-3">
-            <textarea
-              type="text"
-              className="form-control"
-              placeholder="Notes..."
-              rows="5"
-              name="notes"
-              onChange={handleInputChange}
-              value={notes}
-            />
+            <button
+              type="button"
+              className="btn btn-outline-primary mb-3"
+              onClick={handlePreview}
+            >
+              {mdPreview ? (
+                <i className="far fa-edit" />
+              ) : (
+                <i className="far fa-eye" />
+              )}
+            </button>
+            {mdPreview ? (
+              <ReactMarkdown
+                className="form-control"
+                children={notes}
+                remarkPlugins={[remarkGfm]}
+              />
+            ) : (
+              <textarea
+                type="text"
+                className="form-control"
+                placeholder="Notes..."
+                rows="5"
+                name="notes"
+                onChange={handleInputChange}
+                value={notes}
+              />
+            )}
             <small className="form-text text-muted">
               Additional information
             </small>
