@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Router, Redirect, Switch } from 'react-router-dom';
+import { Router, Redirect, Switch } from 'wouter';
 
 import { checkAuth } from '../actions/auth';
 import { LoginScreen } from '../components/auth/LoginScreen';
